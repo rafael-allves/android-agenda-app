@@ -18,6 +18,7 @@ import java.util.List;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     final String TITULO_APP_BAR = "Lista de Alunos";
+    private final AlunoDAO dao = new AlunoDAO();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -35,7 +36,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        AlunoDAO dao = new AlunoDAO();
 
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_alunos);
         final List<Aluno> alunos = dao.todos();
@@ -45,13 +45,25 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 alunos));
 
-        listaDeAlunos.setOnItemClickListener((adapterView, view, pos, id) -> {
-            Aluno alunoEscolhido = alunos.get(pos);
+        clickNaLista(listaDeAlunos);
+        clickLongNaLista(listaDeAlunos);
+    }
 
+    private void clickNaLista(ListView listaDeAlunos)
+    {
+        listaDeAlunos.setOnItemClickListener((adapterView, view, pos, id) -> {
             Intent toFormularioActivity = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);
             toFormularioActivity.putExtra("posAluno", pos);
 
             startActivity(toFormularioActivity);
+        });
+    }
+
+    private void clickLongNaLista(ListView listaDeAlunos)
+    {
+        listaDeAlunos.setOnItemLongClickListener((adapterView, view, pos, id) -> {
+            dao.remove(pos);
+            return true;
         });
     }
 }

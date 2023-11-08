@@ -21,4 +21,10 @@ public class AlunoDAO {
         if(pos >= 0 && pos < alunos.size() && aluno != null)
             alunos.set(pos, aluno);
     }
+
+    public void remove(int pos)
+    {
+        if(pos >= 0 && pos <= alunos.size())
+            alunos.remove(pos);
+    }
 }
