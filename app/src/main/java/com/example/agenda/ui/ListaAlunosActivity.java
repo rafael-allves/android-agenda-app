@@ -3,7 +3,6 @@ package com.example.agenda.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,12 +14,12 @@ import com.example.agenda.R;
 import com.example.agenda.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 public class ListaAlunosActivity extends AppCompatActivity {
 
     final String TITULO_APP_BAR = "Lista de Alunos";
     private final AlunoDAO dao = new AlunoDAO();
+    private ArrayAdapter<Aluno> adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -29,23 +28,33 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         setTitle(TITULO_APP_BAR);
 
-        FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
-        botaoNovoAluno.setOnClickListener(view -> startActivity(new Intent(ListaAlunosActivity.this,
-                FormularioAlunoActivity.class)));
+        configuraBotao();
+        configuraLista();
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
+        adapter.clear();
+        adapter.addAll(dao.todos());
+    }
 
+    private void configuraBotao()
+    {
+        FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
+        botaoNovoAluno.setOnClickListener(view -> startActivity(new Intent(ListaAlunosActivity.this,
+                FormularioAlunoActivity.class)));
+    }
+
+    private void configuraLista() {
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_alunos);
-        final List<Aluno> alunos = dao.todos();
 
-        listaDeAlunos.setAdapter(new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                alunos));
+        adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1
+                    );
+        listaDeAlunos.setAdapter(adapter);
 
         clickNaLista(listaDeAlunos);
         clickLongNaLista(listaDeAlunos);
@@ -64,9 +73,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void clickLongNaLista(ListView listaDeAlunos)
     {
         listaDeAlunos.setOnItemLongClickListener((adapterView, view, pos, id) -> {
-            ArrayAdapter<Aluno> adapter = (ArrayAdapter<Aluno>) listaDeAlunos.getAdapter();
             dao.remove(pos);
             adapter.remove(adapter.getItem(pos));
+
             Toast.makeText(this, "Aluno Removido com Sucesso!", Toast.LENGTH_SHORT).show();
             return true;
         });
