@@ -35,10 +35,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         configuraBotao();
         configuraLista();
-
-        for (int i = 0; i < 20; i++) {
-            dao.salva(new Aluno("Rafa", "", ""));
-        }
     }
 
     @Override
