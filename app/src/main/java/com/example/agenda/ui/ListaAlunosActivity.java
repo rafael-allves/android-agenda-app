@@ -1,5 +1,6 @@
 package com.example.agenda.ui;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -56,7 +57,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             if (menuInfo != null)
                 alunoEscolhido = adapter.getItem(menuInfo.position);
 
-            removeAluno(alunoEscolhido);
+            createDialog(alunoEscolhido);
         }
 
         return super.onContextItemSelected(item);
@@ -96,6 +97,16 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
             startActivity(toFormularioActivity);
         });
+    }
+
+    private void createDialog(Aluno aluno)
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Removendo Aluno")
+                .setMessage("Tem certeza que deseja remover esse aluno?")
+                .setPositiveButton("Sim", null)
+                .setNegativeButton("Não", null)
+                .show();
     }
 
     private void removeAluno(Aluno aluno)
