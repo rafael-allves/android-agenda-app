@@ -3,6 +3,7 @@ package com.example.agenda.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -62,7 +63,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void clickLongNaLista(ListView listaDeAlunos)
     {
         listaDeAlunos.setOnItemLongClickListener((adapterView, view, pos, id) -> {
+            ArrayAdapter<Aluno> adapter = (ArrayAdapter<Aluno>) listaDeAlunos.getAdapter();
             dao.remove(pos);
+            adapter.remove(adapter.getItem(pos));
             return true;
         });
     }
