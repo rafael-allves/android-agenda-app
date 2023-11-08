@@ -18,32 +18,11 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private Aluno aluno;
     final String TITULO_APP_BAR = "Novo Aluno";
     Boolean create;
-
     private Intent dados;
-
     private EditText campoNome;
     private EditText campoTelefone;
     private EditText campoEmail;
     private Button botaoSalvar;
-
-    /**
-     * @brief define os elementos interativos dessa activity
-     * @return void
-     */
-    private void definirCampos() {
-        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
-        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
-        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
-        botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
-
-        botaoSalvar.setOnClickListener(view -> {
-            if(create)
-                criarAluno();
-            else
-                modificarAluno();
-            finish();
-        });
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,24 +47,43 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         }
     }
 
-    private void modificarAluno()
+    /**
+     * @brief define os elementos interativos dessa activity
+     * @return void
+     */
+    private void definirCampos() {
+        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
+        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
+        botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
+
+        botaoSalvar.setOnClickListener(view -> {
+            if(create)
+                criarAluno();
+            else
+                modificarAluno();
+            finish();
+        });
+    }
+
+    private void defineAluno()
     {
         String nome = campoNome.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String email = campoEmail.getText().toString();
 
         aluno = new Aluno(nome, telefone, email);
+    }
 
+    private void modificarAluno()
+    {
+        defineAluno();
         alunoDAO.editAluno(dados.getIntExtra("posAluno", -1), aluno);
     }
 
     private void criarAluno()
     {
-        String nome = campoNome.getText().toString();
-        String telefone = campoTelefone.getText().toString();
-        String email = campoEmail.getText().toString();
-
-        aluno = new Aluno(nome, telefone, email);
+        defineAluno();
         alunoDAO.salva(aluno);
 
         Toast.makeText(FormularioAlunoActivity.this, "Aluno Salvo com sucesso", Toast.LENGTH_SHORT).show();
