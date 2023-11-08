@@ -1,5 +1,6 @@
 package com.example.agenda.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,31 @@ import com.example.agenda.model.Aluno;
 public class FormularioAlunoActivity extends AppCompatActivity {
     final AlunoDAO alunoDAO = new AlunoDAO();
     final String TITULO_APP_BAR = "Novo Aluno";
+    Boolean create;
+
+    private EditText campoNome;
+    private EditText campoTelefone;
+    private EditText campoEmail;
+    private Button botaoSalvar;
+
+    private final Intent dados = getIntent();
+
+    /**
+     * @brief define os elementos interativos dessa activity
+     * @return void
+     */
+    private void definirCampos() {
+        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
+        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
+        botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
+
+        botaoSalvar.setOnClickListener(view -> {
+            if(create)criarAluno();
+            else modificarAluno();
+            finish();
+        });
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,17 +48,30 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_aluno);
         setTitle(TITULO_APP_BAR);
 
-        Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
-        botaoSalvar.setOnClickListener(view -> {
-            this.criarAluno(alunoDAO);
-            finish();
-        });
+        definirCampos();
+
+        create = true;
+        if (dados.hasExtra("aluno")) {
+            Aluno aluno = dados.getParcelableExtra("aluno");
+            if (aluno != null) {
+                create = false;
+
+                campoNome.setText(aluno.getNome());
+                campoTelefone.setText(aluno.getTelefone());
+                campoEmail.setText(aluno.getEmail());
+            }
+        }
     }
 
-    private void criarAluno(AlunoDAO alunoDAO) {
-        String nome = ((EditText) findViewById(R.id.activity_formulario_aluno_nome)).getText().toString();
-        String telefone = ((EditText) findViewById(R.id.activity_formulario_aluno_telefone)).getText().toString();
-        String email = ((EditText) findViewById(R.id.activity_formulario_aluno_email)).getText().toString();
+    private void modificarAluno()
+    {
+    }
+
+    private void criarAluno()
+    {
+        String nome = campoNome.getText().toString();
+        String telefone = campoTelefone.getText().toString();
+        String email = campoEmail.getText().toString();
 
         alunoDAO.salva(new Aluno(nome, telefone, email));
 
