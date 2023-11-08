@@ -44,7 +44,7 @@ public class AlunoAdapter extends BaseAdapter {
                         parent,
                         false
                 );
-        Aluno aluno = alunos.get(position;
+        Aluno aluno = alunos.get(position);
 
         TextView nome = view.findViewById(R.id.item_aluno_nome);
         nome.setText(aluno.getNome());
