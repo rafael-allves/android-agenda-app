@@ -16,9 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.agenda.DAO.AlunoDAO;
 import com.example.agenda.R;
 import com.example.agenda.model.Aluno;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import com.example.agenda.ui.adapter.AlunoAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     final String TITULO_APP_BAR = "Lista de Alunos";
@@ -67,7 +66,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        atualizaLista();
+        adapter.atualiza(dao.todos());
     }
 
     private void configuraBotao()
@@ -87,12 +86,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void configuraAdapter(ListView listaDeAlunos) {
         adapter = new AlunoAdapter(this);
         listaDeAlunos.setAdapter(adapter);
-    }
-
-    private void atualizaLista()
-    {
-        adapter.clear();
-        adapter.addAll(dao.todos());
     }
 
     private void clickNaLista(ListView listaDeAlunos)

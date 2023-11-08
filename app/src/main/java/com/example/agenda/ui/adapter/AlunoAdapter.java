@@ -38,32 +38,40 @@ public class AlunoAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(context)
-                .inflate(
-                        R.layout.activity_lista_de_alunos_item_aluno,
-                        parent,
-                        false
-                );
+        View view = criaView(parent);
         Aluno aluno = alunos.get(position);
 
+        vinculaCampos(view, aluno);
+
+        return view;
+    }
+
+    private static void vinculaCampos(View view, Aluno aluno) {
         TextView nome = view.findViewById(R.id.item_aluno_nome);
         nome.setText(aluno.getNome());
 
         TextView telefone = view.findViewById(R.id.item_aluno_telefone);
         telefone.setText(aluno.getTelefone());
-
-        return view;
     }
 
-    public void clear() {
-        alunos.clear();
+    private View criaView(ViewGroup parent) {
+        return LayoutInflater.from(context)
+                .inflate(
+                        R.layout.activity_lista_de_alunos_item_aluno,
+                        parent,
+                        false
+                );
     }
 
-    public void addAll(List<Aluno> alunos) {
+    public void atualiza(List<Aluno> alunos)
+    {
+        this.alunos.clear();
         this.alunos.addAll(alunos);
+        notifyDataSetChanged();
     }
-
-    public void remove(Aluno aluno){
+    public void remove(Aluno aluno)
+    {
         alunos.remove(aluno);
+        notifyDataSetChanged();
     }
 }
