@@ -108,5 +108,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
     {
         dao.remove(aluno);
         adapter.remove(aluno);
+        Toast.makeText(this, "Aluno Removido com Sucesso!", Toast.LENGTH_SHORT).show();
     }
 }
