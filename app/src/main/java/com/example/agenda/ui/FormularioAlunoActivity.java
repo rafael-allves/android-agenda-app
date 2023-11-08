@@ -3,10 +3,11 @@ package com.example.agenda.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private EditText campoNome;
     private EditText campoTelefone;
     private EditText campoEmail;
-    private Button botaoSalvar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,23 +56,23 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * @brief define os elementos interativos dessa activity
-     * @return void
-     */
-    private void definirCampos() {
-        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
-        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
-        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
-        botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
-
-        botaoSalvar.setOnClickListener(view -> {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.activity_formulario_aluno_botao_salvar){
             if(create)
                 criarAluno();
             else
                 modificarAluno();
             finish();
-        });
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void definirCampos() {
+        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
+        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
     }
 
     private void defineAluno()
