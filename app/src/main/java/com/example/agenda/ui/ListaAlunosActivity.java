@@ -50,7 +50,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             Aluno alunoEscolhido = alunos.get(pos);
 
             Intent toFormularioActivity = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);
-            toFormularioActivity.putExtra("aluno", alunoEscolhido);
+            toFormularioActivity.putExtra("posAluno", pos);
 
             startActivity(toFormularioActivity);
         });

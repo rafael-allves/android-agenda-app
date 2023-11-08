@@ -51,8 +51,8 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         definirCampos();
 
         create = true;
-        if (dados.hasExtra("aluno")) {
-            Aluno aluno = dados.getParcelableExtra("aluno");
+        if (dados.hasExtra("posAluno")) {
+            Aluno aluno = alunoDAO.todos().get(dados.getIntExtra("posAluno", -1));
             if (aluno != null) {
                 create = false;
 
@@ -65,7 +65,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void modificarAluno()
     {
-        
+
     }
 
     private void criarAluno()
