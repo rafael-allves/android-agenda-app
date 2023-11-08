@@ -79,6 +79,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     {
         defineAluno();
         alunoDAO.editAluno(dados.getIntExtra("posAluno", -1), aluno);
+        Toast.makeText(FormularioAlunoActivity.this, "Aluno Editado com sucesso", Toast.LENGTH_SHORT).show();
     }
 
     private void criarAluno()
@@ -86,6 +87,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         defineAluno();
         alunoDAO.salva(aluno);
 
-        Toast.makeText(FormularioAlunoActivity.this, "Aluno Salvo com sucesso", Toast.LENGTH_SHORT).show();
+        Toast.makeText(FormularioAlunoActivity.this, "Aluno Criado com sucesso", Toast.LENGTH_SHORT).show();
     }
 }
