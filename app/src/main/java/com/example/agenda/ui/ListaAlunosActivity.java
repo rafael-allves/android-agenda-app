@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +67,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             ArrayAdapter<Aluno> adapter = (ArrayAdapter<Aluno>) listaDeAlunos.getAdapter();
             dao.remove(pos);
             adapter.remove(adapter.getItem(pos));
+            Toast.makeText(this, "Aluno Removido com Sucesso!", Toast.LENGTH_SHORT).show();
             return true;
         });
     }
