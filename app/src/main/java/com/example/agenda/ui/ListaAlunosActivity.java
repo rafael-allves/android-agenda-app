@@ -46,7 +46,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item)
+    public boolean onContextItemSelected(@NonNull final MenuItem item)
     {
         int itemId = item.getItemId();
         if(itemId == R.id.activity_lista_alunos_context_menu_remover){
@@ -104,7 +104,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Removendo Aluno")
                 .setMessage("Tem certeza que deseja remover esse aluno?")
-                .setPositiveButton("Sim", null)
+                .setPositiveButton("Sim", (dialog, which) -> removeAluno(aluno))
                 .setNegativeButton("Não", null)
                 .show();
     }
