@@ -40,7 +40,8 @@ public class AlunoAdapter extends BaseAdapter {
         return LayoutInflater.from(context)
                 .inflate(
                         R.layout.activity_lista_de_alunos_item_aluno,
-                        parent
+                        parent,
+                        false
                 );
     }
 
