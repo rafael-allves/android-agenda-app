@@ -2,6 +2,7 @@ package com.example.agenda.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,6 +46,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 campoEmail.setText(aluno.getEmail());
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater()
+                .inflate(R.menu.activity_formulario_aluno_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**
