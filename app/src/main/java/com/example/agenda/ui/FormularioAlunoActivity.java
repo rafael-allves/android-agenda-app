@@ -86,7 +86,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     {
         defineAluno();
         alunoDAO.salva(aluno);
-
         Toast.makeText(FormularioAlunoActivity.this, "Aluno Criado com sucesso", Toast.LENGTH_SHORT).show();
     }
 }
